@@ -1,6 +1,6 @@
 /venv
 .venv
-.enn
+.env
 
 .vscode
 .DS_Store
