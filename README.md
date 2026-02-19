@@ -1,2 +1,2 @@
 VVD Project
-Khomyshyn, Shelep, Kysil, Kormyliuk
+Khomyshyn, Shelep, Kysil, Kormyliuk, Zimnov
