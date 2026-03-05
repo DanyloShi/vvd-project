@@ -1,2 +1,5 @@
-VVD Project
-Khomyshyn, Shelep, Kysil, Kormyliuk, Vulchyn
+# **VVD Project**
+## *Authors: Khomyshyn, Shelep, Kysil, Kormyliuk, Vulchyn, Zimnov*
+
+**How to start:**
+docker run --rm vvd-project-img
