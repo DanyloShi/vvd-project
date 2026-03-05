@@ -3,4 +3,5 @@
 
 **How to start:**
 pip install -r requirements.txt
+docker build -t vvd-project-img .
 docker run --rm vvd-project-img
