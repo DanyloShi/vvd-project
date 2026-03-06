@@ -45,8 +45,17 @@ schema = StructType([
 
 spark = SparkSession.builder.appName("MusicData").getOrCreate()
 
-df = spark.read.csv("spotify_dataset.csv", header=True, schema=schema)
+df = spark.read.csv(
+    "spotify_dataset.csv",
+    header=True,
+    schema=schema,
+    multiLine=True,
+    quote='"',
+    escape='"',
+    mode="PERMISSIVE"
+)
 
+df = df.drop("text")
 print("\nBasic song info")
 df.select(
     "Artist(s)", "song", "Genre", "Album"
