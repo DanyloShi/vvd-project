@@ -8,12 +8,19 @@ from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 
 
-CURATED_FILE = "data/processed/spotify_curated.csv"
-AUDIO_FILE = "data/processed/audio_features.csv"
-RELEASE_FILE = "data/processed/release_info.csv"
-SIMILAR_FILE = "data/processed/similar_tracks.csv"
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
+PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 
-OUTPUT_DIR = Path("data/transformed")
+SONGS_FILE = str(PROCESSED_DIR / "songs.csv")
+GENRES_FILE = str(PROCESSED_DIR / "genres.csv")
+SONG_GENRES_FILE = str(PROCESSED_DIR / "song_genres.csv")
+ACTIVITY_FILE = str(PROCESSED_DIR / "activity.csv")
+AUDIO_FILE = str(PROCESSED_DIR / "audio_features.csv")
+RELEASE_FILE = str(PROCESSED_DIR / "release_info.csv")
+SIMILAR_FILE = str(PROCESSED_DIR / "similar_songs.csv")
+
+OUTPUT_DIR = PROJECT_ROOT / "results" / "khomyshyn"
 PLANS_DIR = OUTPUT_DIR / "plans"
 
 
@@ -44,6 +51,8 @@ def save_question_result(name, description, df):
     print(f"{name} execution plan (explain):")
     df.explain(mode="formatted")
 
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    PLANS_DIR.mkdir(parents=True, exist_ok=True)
     plan_text = df._jdf.queryExecution().toString()
     (PLANS_DIR / f"{name}_plan.txt").write_text(plan_text, encoding="utf-8")
     save_single_csv(df, str(OUTPUT_DIR / f"{name}.csv"))
@@ -67,15 +76,32 @@ for old_csv in OUTPUT_DIR.glob("q*.csv"):
 for old_plan in PLANS_DIR.glob("q*_plan.txt"):
     old_plan.unlink(missing_ok=True)
 
-curated_df = (
+songs_df = (
     spark.read
     .option("header", True)
     .option("inferSchema", True)
-    .csv(CURATED_FILE)
+    .csv(SONGS_FILE)
 )
-curated_df = normalize_bom_column(curated_df)
-curated_df = curated_df.withColumn("Release Date", F.to_date(F.col("Release Date"), "yyyy-MM-dd"))
+songs_df = normalize_bom_column(songs_df)
 
+genres_df = (
+    spark.read
+    .option("header", True)
+    .option("inferSchema", True)
+    .csv(GENRES_FILE)
+)
+song_genres_map_df = (
+    spark.read
+    .option("header", True)
+    .option("inferSchema", True)
+    .csv(SONG_GENRES_FILE)
+)
+activity_df = (
+    spark.read
+    .option("header", True)
+    .option("inferSchema", True)
+    .csv(ACTIVITY_FILE)
+)
 audio_df = (
     spark.read
     .option("header", True)
@@ -89,6 +115,16 @@ release_df = (
     .csv(RELEASE_FILE)
     .withColumn("Release Date", F.to_date(F.col("Release Date"), "yyyy-MM-dd"))
 )
+
+release_df = release_df.withColumn(
+    "length_seconds",
+    F.when(
+        F.col("Length").rlike(r"^\d{1,2}:\d{2}$"),
+        F.split(F.col("Length"), ":").getItem(0).cast("int") * 60
+        + F.split(F.col("Length"), ":").getItem(1).cast("int")
+    ).otherwise(F.lit(None).cast("int"))
+)
+
 similar_df = (
     spark.read
     .option("header", True)
@@ -97,12 +133,33 @@ similar_df = (
 )
 
 song_genres_df = (
-    curated_df
-    .select("song_id", F.explode(F.split(F.col("Genre"), ",")).alias("genre_name"))
-    .withColumn("genre_name", F.trim(F.lower(F.col("genre_name"))))
+    song_genres_map_df
+    .join(genres_df, on="genre_id", how="inner")
+    .select("song_id", F.trim(F.lower(F.col("genre_name"))).alias("genre_name"))
     .filter(F.col("genre_name").isNotNull())
     .filter(F.col("genre_name") != "")
     .dropDuplicates()
+)
+
+song_genres_text_df = (
+    song_genres_df
+    .groupBy("song_id")
+    .agg(F.concat_ws(", ", F.sort_array(F.collect_set("genre_name"))).alias("Genre"))
+)
+
+similar_rank1_df = (
+    similar_df
+    .filter(F.col("similar_rank") == 1)
+    .select("song_id", F.col("similar_artist").alias("Similar Artist 1"))
+)
+
+curated_df = (
+    songs_df
+    .join(release_df.select("song_id", "Release Date", "length_seconds", "Popularity"), on="song_id", how="left")
+    .join(audio_df, on="song_id", how="left")
+    .join(activity_df, on="song_id", how="left")
+    .join(song_genres_text_df, on="song_id", how="left")
+    .join(similar_rank1_df, on="song_id", how="left")
 )
 
 q1 = (
@@ -198,7 +255,7 @@ q5 = (
     .withColumn("release_year", F.year(F.col("Release Date")))
     .withColumn("year_rank", F.row_number().over(year_rank_window))
     .filter(F.col("year_rank") <= 1)
-    .select("release_year", "year_rank", "Artist(s)", "song", "Popularity", "Length_seconds")
+    .select("release_year", "year_rank", "Artist(s)", "song", "Popularity", "length_seconds")
     .orderBy("release_year", "year_rank")
 )
 save_question_result(
@@ -209,16 +266,7 @@ save_question_result(
 
 similar_long_df = (
     similar_df
-    .select(
-        "song_id",
-        F.explode(
-            F.array(
-                F.col("Similarity Score 1"),
-                F.col("Similarity Score 2"),
-                F.col("Similarity Score 3"),
-            )
-        ).alias("similarity_score")
-    )
+    .select("song_id", "similarity_score")
     .filter(F.col("similarity_score").isNotNull())
 )
 q6 = (

@@ -1,11 +1,13 @@
 import pandas as pd
 import os
+from pathlib import Path
 
-DATA_PATH = "../data/processed/"
-RESULTS_PATH = "../results/"
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
+DATA_PATH = PROJECT_ROOT / "data" / "processed"
+RESULTS_PATH = PROJECT_ROOT / "results" / "zimnov"
 
-if not os.path.exists(RESULTS_PATH):
-    os.makedirs(RESULTS_PATH)
+RESULTS_PATH.mkdir(parents=True, exist_ok=True)
 
 def load_data():
     file_list = {
@@ -20,7 +22,7 @@ def load_data():
     
     data = {}
     for key, filename in file_list.items():
-        path = os.path.join(DATA_PATH, filename)
+        path = DATA_PATH / filename
         try:
             data[key] = pd.read_csv(
                 path, 
@@ -42,7 +44,7 @@ def process_questions(data):
     )
     q1_result = rock_songs[rock_songs['genre_name'].str.lower() == 'rock'] \
                 .sort_values(by='Popularity', ascending=False).head(10)
-    q1_result[['song', 'Artist(s)', 'Popularity']].to_csv(os.path.join(RESULTS_PATH, 'q1_top_rock_songs.csv'), index=False)
+    q1_result[['song', 'Artist(s)', 'Popularity']].to_csv(RESULTS_PATH / 'q1_top_rock_songs.csv', index=False)
 
     data['release_info']['Year'] = pd.to_datetime(data['release_info']['Release Date']).dt.year
     positiveness_trends = (
@@ -52,14 +54,14 @@ def process_questions(data):
 
     q2_result = positiveness_trends[positiveness_trends['Year'] >= 2010] \
                 .groupby('Year')['Positiveness'].mean().reset_index()
-    q2_result.to_csv(os.path.join(RESULTS_PATH, 'q2_positiveness_trends.csv'), index=False)
+    q2_result.to_csv(RESULTS_PATH / 'q2_positiveness_trends.csv', index=False)
 
     q3_result = (
         data['similar_songs']
         .sort_values(by=['song_id', 'similarity_score'], ascending=[True, False])
         .groupby('song_id').head(3)
     )
-    q3_result.to_csv(os.path.join(RESULTS_PATH, 'q3_top_3_similar_songs.csv'), index=False)
+    q3_result.to_csv(RESULTS_PATH / 'q3_top_3_similar_songs.csv', index=False)
 
     artist_popularity = (
         data['songs']
@@ -72,7 +74,7 @@ def process_questions(data):
     artist_popularity['Rank'] = artist_popularity.groupby('genre_name')['Popularity'] \
                                 .rank(ascending=False, method='dense')
     q4_result = artist_popularity.sort_values(['genre_name', 'Rank'])
-    q4_result.to_csv(os.path.join(RESULTS_PATH, 'q4_artist_genre_rank.csv'), index=False)
+    q4_result.to_csv(RESULTS_PATH / 'q4_artist_genre_rank.csv', index=False)
 
     def time_to_seconds(t_str):
         try:
@@ -89,7 +91,7 @@ def process_questions(data):
     duration_data['Length_Sec'] = duration_data['Length'].apply(time_to_seconds)
     q5_result = duration_data.groupby('genre_name')['Length_Sec'].mean().reset_index()
     q5_result['Avg_Length_Min'] = (q5_result['Length_Sec'] / 60).round(2)
-    q5_result.to_csv(os.path.join(RESULTS_PATH, 'q5_genre_duration_analysis.csv'), index=False)
+    q5_result.to_csv(RESULTS_PATH / 'q5_genre_duration_analysis.csv', index=False)
 
     road_trip_candidates = (
         data['songs']
@@ -104,7 +106,7 @@ def process_questions(data):
         (road_trip_candidates['Tempo'] <= 120) & 
         (road_trip_candidates['Good for Driving'] == 1)
     ]
-    q6_result[['song', 'Artist(s)', 'Tempo', 'Length']].to_csv(os.path.join(RESULTS_PATH, 'q6_road_trip_playlist.csv'), index=False)
+    q6_result[['song', 'Artist(s)', 'Tempo', 'Length']].to_csv(RESULTS_PATH / 'q6_road_trip_playlist.csv', index=False)
 
 if __name__ == "__main__":
     try:

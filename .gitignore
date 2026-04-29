@@ -6,7 +6,9 @@ data/
 /results
 .vscode
 .DS_Store
-.idea
-reports/
 
 results/
+data/
+reports/
+
+__pycache__

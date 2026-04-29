@@ -2,6 +2,7 @@ import os
 import re
 import shutil
 from glob import glob
+from pathlib import Path
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, avg, count, desc, row_number, when, lower
@@ -61,6 +62,11 @@ spark = (
 
 spark.sparkContext.setLogLevel("ERROR")
 
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
+RESULTS_DIR = PROJECT_ROOT / "results" / "vulchyn"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
 
 # Зчитування вже підготовлених таблиць
 songs_df = read_processed_csv(spark, "data/processed/songs.csv")
@@ -88,9 +94,6 @@ else:
     songs_main_df = songs_main_df.withColumn("explicit_flag", when(col("song_id").isNotNull(), 0).otherwise(0))
 
 
-os.makedirs("results", exist_ok=True)
-
-
 # 1. Які 15 найпопулярніших пісень можна рекомендувати для навчання або роботи?
 q1 = (
     songs_main_df
@@ -112,7 +115,7 @@ q1 = (
 print("\nQ1: Top 15 songs for work or study")
 q1.show(truncate=False)
 q1.explain(True)
-save_single_csv(q1, "results/q1_top_songs_for_work_study.csv")
+save_single_csv(q1, str(RESULTS_DIR / "q1_top_songs_for_work_study.csv"))
 
 
 # 2. Які пісні з високою танцювальністю та позитивністю найкраще підходять для соціальних подій?
@@ -139,7 +142,7 @@ q2 = (
 print("\nQ2: Danceable and positive songs for social events")
 q2.show(truncate=False)
 q2.explain(True)
-save_single_csv(q2, "results/q2_dance_positive_social_songs.csv")
+save_single_csv(q2, str(RESULTS_DIR / "q2_dance_positive_social_songs.csv"))
 
 
 # 3. Які жанри мають найбільшу частку explicit-контенту?
@@ -160,7 +163,7 @@ q3 = (
 print("\nQ3: Genres with the highest explicit content share")
 q3.show(truncate=False)
 q3.explain(True)
-save_single_csv(q3, "results/q3_genres_by_explicit_share.csv")
+save_single_csv(q3, str(RESULTS_DIR / "q3_genres_by_explicit_share.csv"))
 
 
 # 4. Які жанри мають найвищу середню енергійність та темп?
@@ -182,7 +185,7 @@ q4 = (
 print("\nQ4: Genres with the highest average energy and tempo")
 q4.show(truncate=False)
 q4.explain(True)
-save_single_csv(q4, "results/q4_high_energy_tempo_genres.csv")
+save_single_csv(q4, str(RESULTS_DIR / "q4_high_energy_tempo_genres.csv"))
 
 
 # 5. Які топ-5 найпопулярніші пісні кожного настрою/emotion?
@@ -208,7 +211,7 @@ q5 = (
 print("\nQ5: Top 5 songs by emotion")
 q5.show(50, truncate=False)
 q5.explain(True)
-save_single_csv(q5, "results/q5_top5_songs_by_emotion.csv")
+save_single_csv(q5, str(RESULTS_DIR / "q5_top5_songs_by_emotion.csv"))
 
 
 # 6. Які виконавці мають найкращий середній рейтинг популярності, якщо мають мінімум 3 пісні в датасеті?
@@ -240,7 +243,7 @@ q6 = (
 print("\nQ6: Top artists by average popularity")
 q6.show(50, truncate=False)
 q6.explain(True)
-save_single_csv(q6, "results/q6_top_artists_by_avg_popularity.csv")
+save_single_csv(q6, str(RESULTS_DIR / "q6_top_artists_by_avg_popularity.csv"))
 
 
 spark.stop()

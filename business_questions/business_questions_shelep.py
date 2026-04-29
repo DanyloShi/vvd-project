@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
 
 PROCESSED_DIR = os.path.join(PROJECT_ROOT, "data", "processed")
-RESULTS_DIR = os.path.join(PROJECT_ROOT, "results")
+RESULTS_DIR = os.path.join(PROJECT_ROOT, "results", "shelep")
 
 os.makedirs(RESULTS_DIR, exist_ok=True)
 

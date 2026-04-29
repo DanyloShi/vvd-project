@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count, when, isnan, to_date, regexp_replace, trim, \
+from pyspark.sql.functions import col, count, when, isnan, regexp_replace, trim, expr, \
     concat_ws, sha2, explode, split, lower, array, struct, lit
 from pyspark.sql.types import StructType, StructField, StringType, FloatType, IntegerType
 import os
@@ -86,8 +86,10 @@ df.select(numeric_cols).summary().show(vertical=True)
 
 df = df.withColumn("Release Date", regexp_replace(col("Release Date"), r"(\d+)(st|nd|rd|th)", "$1"))
 
-df = df.withColumn("Release Date", to_date(col("Release Date"), "d MMMM yyyy"))
-df = df.withColumn("Loudness (db)", regexp_replace(col("Loudness (db)"), "[^0-9.-]", "").cast(FloatType()))
+# Spark 4 in ANSI mode throws on malformed dates, so use tolerant parsing.
+df = df.withColumn("Release Date", expr("try_to_date(`Release Date`, 'd MMMM yyyy')"))
+df = df.withColumn("Loudness (db)", regexp_replace(col("Loudness (db)"), "[^0-9.-]", ""))
+df = df.withColumn("Loudness (db)", expr("try_cast(`Loudness (db)` as float)"))
 df = df.withColumn("Explicit", when(col("Explicit") == "True", 1).otherwise(0))
 
 initial_count = df.count()
