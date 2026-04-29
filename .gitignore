@@ -2,6 +2,8 @@
 .venv
 .env
 
+data/
+/results
 .vscode
 .DS_Store
 
