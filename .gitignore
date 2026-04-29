@@ -4,3 +4,9 @@
 
 .vscode
 .DS_Store
+
+results/
+data/
+reports/
+
+__pycache__
