@@ -3,9 +3,10 @@
 .env
 
 data/
-
+/results
 .vscode
 .DS_Store
 .idea
 reports/
+
 results/
