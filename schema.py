@@ -1,4 +1,5 @@
-from pyspark.sql.functions import monotonically_increasing_id
+from pyspark.sql.functions import monotonically_increasing_id, sha2, concat_ws, col, trim, explode, lit, struct, array, \
+    lower, split
 from pyspark.sql.types import StructType, StructField, StringType, FloatType, IntegerType
 from pyspark.sql import SparkSession
 
@@ -78,13 +79,16 @@ df = spark.read.csv(
     mode="PERMISSIVE"
 )
 
-df = df.withColumn("song_id", monotonically_increasing_id())
+df = df.withColumn(
+    "song_id",
+    sha2(concat_ws("||", col("Artist(s)"), col("song"), col("Album")), 256)
+)
 
 df = df.drop("text")
 print("\nBasic song info")
 songs_df = df.select(
     "song_id",
-    "Artist(s)", "song", "Genre", "Album"
+    "Artist(s)", "song", "Album"
 )
 
 songs_df.show(5, truncate=20)
@@ -140,20 +144,76 @@ activity_df = df.select(
 activity_df.show(5, truncate=20)
 
 print("\nSimilar tracks")
-similar_songs_df = df.select(
-    "song_id",
-    "Similar Artist 1", "Similar Song 1", "Similarity Score 1",
-    "Similar Artist 2", "Similar Song 2", "Similarity Score 2",
-    "Similar Artist 3", "Similar Song 3", "Similarity Score 3"
+similar_songs_df = (
+    df.select(
+        "song_id",
+        array(
+            struct(
+                lit(1).alias("similar_rank"),
+                col("Similar Artist 1").alias("similar_artist"),
+                col("Similar Song 1").alias("similar_song"),
+                col("Similarity Score 1").alias("similarity_score")
+            ),
+            struct(
+                lit(2).alias("similar_rank"),
+                col("Similar Artist 2").alias("similar_artist"),
+                col("Similar Song 2").alias("similar_song"),
+                col("Similarity Score 2").alias("similarity_score")
+            ),
+            struct(
+                lit(3).alias("similar_rank"),
+                col("Similar Artist 3").alias("similar_artist"),
+                col("Similar Song 3").alias("similar_song"),
+                col("Similarity Score 3").alias("similarity_score")
+            )
+        ).alias("similarities")
+    )
+    .select("song_id", explode(col("similarities")).alias("sim"))
+    .select(
+        "song_id",
+        col("sim.similar_rank"),
+        trim(col("sim.similar_artist")).alias("similar_artist"),
+        trim(col("sim.similar_song")).alias("similar_song"),
+        col("sim.similarity_score")
+    )
+    .filter(col("similar_artist").isNotNull())
+    .filter(col("similar_song").isNotNull())
+    .filter(col("similar_artist") != "")
+    .filter(col("similar_song") != "")
+    .dropDuplicates()
+)
+similar_songs_df.show(5, truncate=20)
+
+print("\nGenres")
+song_genres_raw_df = (
+    df.select(
+        "song_id",
+        explode(split(col("Genre"), ",")).alias("genre_name")
+    )
+    .withColumn("genre_name", trim(col("genre_name")))
+    .filter(col("genre_name") != "")
+    .filter(col("genre_name") != "Unknown")
+    .dropDuplicates()
 )
 
-similar_songs_df.show(5, truncate=20)
+genres_df = (
+    song_genres_raw_df
+    .select("genre_name")
+    .dropDuplicates()
+    .withColumn(
+        "genre_id",
+        sha2(lower(trim(col("genre_name"))), 256)
+    )
+)
+
+song_genres_df = (
+    song_genres_raw_df
+    .join(genres_df, "genre_name", "inner")
+    .select("song_id", "genre_id")
+    .dropDuplicates()
+)
+genres_df.show(5, truncate=20)
+song_genres_df.show(5, truncate=20)
 
 print("\nSchema DataFrame")
 df.printSchema()
-
-save_single_csv(songs_df, "data/processed/songs.csv")
-save_single_csv(audio_features_df, "data/processed/audio_features.csv")
-save_single_csv(activity_df, "data/processed/activity.csv")
-save_single_csv(similar_songs_df, "data/processed/similar_tracks.csv")
-save_single_csv(release_info_df, "data/processed/release_info.csv")
