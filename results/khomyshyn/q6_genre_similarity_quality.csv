@@ -1,0 +1,87 @@
+genre_name,songs_with_similars,avg_similarity_score
+drum and bass,2639,0.99
+reggae,8511,0.9866
+k-pop,1459,0.9858
+dub,2050,0.9857
+worship,450,0.9841
+funk,6985,0.9836
+pop punk,3876,0.9833
+christian,1740,0.983
+metalcore,4469,0.9824
+acoustic,976,0.982
+power metal,1864,0.9819
+swing,3320,0.9818
+techno,870,0.9818
+country,16357,0.9816
+post-hardcore,4384,0.9816
+pop rock,22582,0.9814
+pop,63307,0.9811
+trap,15308,0.9809
+blues,12786,0.9808
+gospel,3339,0.9808
+latin,1120,0.9808
+heavy metal,13143,0.9807
+melodic death metal,1619,0.9807
+progressive metal,4117,0.9806
+electropop,8375,0.9805
+emo,4056,0.9804
+alternative rock,40267,0.9803
+folk,20230,0.9803
+metal,15583,0.9803
+jazz,15837,0.9801
+grunge,2026,0.98
+deathcore,1041,0.98
+screamo,880,0.98
+rock,84107,0.9799
+hard rock,11958,0.9799
+classic rock,5822,0.9799
+classical,5472,0.9799
+j-pop,862,0.9798
+britpop,768,0.9798
+new wave,5782,0.9797
+synthpop,9215,0.9796
+nu metal,2090,0.9796
+rnb,3099,0.9795
+disco,2358,0.9795
+black metal,1392,0.9795
+alt-country,602,0.9795
+doom metal,956,0.9794
+thrash metal,2896,0.9792
+death metal,2508,0.9792
+soundtrack,3508,0.9791
+soul,15947,0.9789
+punk rock,6656,0.9788
+dance,4667,0.9788
+rap,15969,0.9787
+progressive rock,10097,0.9787
+hip-hop,8793,0.9787
+house,2485,0.9785
+indie rock,22744,0.9783
+indie pop,10617,0.9783
+electronic,21473,0.9782
+trance,2446,0.9782
+indie,6471,0.9781
+shoegaze,2173,0.9781
+electro,848,0.978
+punk,11427,0.9778
+alternative,3870,0.9778
+ambient,3335,0.9775
+garage rock,1650,0.9773
+hardcore,1434,0.9772
+hip hop,239855,0.9768
+dream pop,2176,0.9768
+psychedelic rock,6976,0.9766
+math rock,679,0.9763
+post-punk,3581,0.9762
+industrial,2137,0.9754
+emo rap,1719,0.9753
+dancehall,1547,0.9753
+cloud rap,2489,0.9747
+psychedelic,323,0.9747
+comedy,1251,0.9743
+grime,802,0.9743
+trip-hop,659,0.9743
+chillwave,620,0.9743
+experimental,3550,0.974
+dubstep,774,0.9739
+lo-fi,2281,0.9732

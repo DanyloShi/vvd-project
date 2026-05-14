@@ -1,0 +1,4 @@
+popularity_tier,tracks_count,avg_length_sec,avg_length_min
+1. Hit (>=80),2531,202.94,3.38
+2. Average (50-79),32363,199.49,3.32
+3. Low (<50),238556,212.64,3.54

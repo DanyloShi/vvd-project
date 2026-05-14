@@ -1,0 +1,44 @@
+emotion,rank_in_emotion,artist,song,album,popularity
+Love,1,"Wes Nelson,Craig David",Bop It,Abracadabra (feat. Craig David),54
+Love,2,"Tenishia,Vigel",Where Do We Begin,Where Do We Begin (Vigel Remix),30
+True,1,"Travis Scott,The Weeknd,Swae Lee",Rodeo Tour Dates,UTOPIA,70
+True,2,Kendrick Lamar,Mortal Man,To Pimp A Butterfly,58
+True,3,Eluveitie,Epona,Evocation II - Pantheon,50
+True,4,Mike Oldfield,Tubular Bells,Tubular Bells,47
+True,5,Armor For Sleep,The Truth About Heaven,What To Do When You Are Dead,43
+anger,1,Billie Eilish,E.T.,HIT ME HARD AND SOFT,99
+anger,2,Billie Eilish,HI,HIT ME HARD AND SOFT,99
+anger,3,Kendrick Lamar,The Relevant,Not Like Us,97
+anger,4,Kendrick Lamar,The Jig Is Up Dumpn,Not Like Us,97
+anger,5,Kendrick Lamar,Track 10,Not Like Us,97
+angry,1,Alice In Chains,"Love, Hate, Love",Facelift,56
+confusion,1,Johnny Orlando,Youre Just Drunk,all the things that could go wrong,40
+fear,1,Sabrina Carpenter,Wildside,Espresso,99
+fear,2,Sabrina Carpenter,Alien,Espresso,99
+fear,3,Sabrina Carpenter,Alien Acoustic,Please Please Please,98
+fear,4,Taylor Swift,Fearless Tour Setlist,Lover,92
+fear,5,Billie Eilish,Telegraph Ave,HIT ME HARD AND SOFT,92
+interest,1,Stereolab,Spark Plug,Emperor Tomato Ketchup (Expanded Edition),28
+joy,1,Billie Eilish,So So,HIT ME HARD AND SOFT,99
+joy,2,Sabrina Carpenter,Swing My Way,Please Please Please,99
+joy,3,Billie Eilish,Birds of a Feather,HIT ME HARD AND SOFT,99
+joy,4,Sabrina Carpenter,Safe and Sound,Please Please Please,99
+joy,5,Sabrina Carpenter,I Cant Stop Me,Espresso,99
+love,1,Natasha Bedingfield,"Actress, Model...",Unwritten,94
+love,2,Taylor Swift,Formula 1 2016 Setlist,Lover,93
+love,3,"Sevdaliza,Pabllo Vittar,Yseult",Pabllo Vittar - Triste com T English Translation,Alibi (with Pabllo Vittar & Yseult),93
+love,4,Harry Styles,The Chain,Harry's House,92
+love,5,LISA,LISA - LALISA Romanized,Rockstar,91
+pink,1,Pink Floyd,Vegetable Man,1965-67 Cambridge St/ation,20
+pink,2,Kosmos,Vegetable Man,Like Black Holes in the Sky: The Tribute to Syd Barrett,1
+sadness,1,Billie Eilish,H.M.T,HIT ME HARD AND SOFT,100
+sadness,2,Sabrina Carpenter,U,Espresso,99
+sadness,3,Billie Eilish,Slipping Away Original Mix,HIT ME HARD AND SOFT,99
+sadness,4,Kendrick Lamar,A Little Appalled,Not Like Us,97
+sadness,5,Kendrick Lamar,Broke My Heart,Not Like Us,97
+surprise,1,Charli xcx,Painkiller,BRAT,89
+surprise,2,Frank Ocean,Standing Still,Blonde,88
+surprise,3,The Kid LAROI,BOSS UP Interlude,THE FIRST TIME,88
+surprise,4,Bon Jovi,If God Was A Woman,Slippery When Wet,87
+surprise,5,Chris Brown,Hands Up High,11:11,87
+thirst,1,"Jason Derulo,Nicki Minaj,Ty Dolla $ign",Swalla After Dark Remix,Swalla (feat. Nicki Minaj and Ty Dolla $ign) [After Dark Remix],26

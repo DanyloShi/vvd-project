@@ -1,0 +1,188 @@
+== Parsed Logical Plan ==
+GlobalLimit 5
++- LocalLimit 5
+   +- Sort [avg_instrumentalness#341 DESC NULLS LAST], true
+      +- Filter (tracks_count#340L >= cast(100 as bigint))
+         +- Aggregate [genre_name#161], [genre_name#161, count(distinct song_id#57) AS tracks_count#340L, round(avg(Instrumentalness#111), 4) AS avg_instrumentalness#341]
+            +- Filter isnotnull(Instrumentalness#111)
+               +- Project [song_id#57, genre_name#161, Instrumentalness#111]
+                  +- Join Inner, (song_id#57 = song_id#17)
+                     :- Deduplicate [song_id#57, genre_name#161]
+                     :  +- Filter NOT (genre_name#161 = )
+                     :     +- Filter isnotnull(genre_name#161)
+                     :        +- Project [song_id#57, trim(lower(genre_name#38), None) AS genre_name#161]
+                     :           +- Project [genre_id#58, song_id#57, genre_name#38]
+                     :              +- Join Inner, (genre_id#58 = genre_id#39)
+                     :                 :- Relation [song_id#57,genre_id#58] csv
+                     :                 +- Relation [genre_name#38,genre_id#39] csv
+                     +- Project [song_id#17, Instrumentalness#111]
+                        +- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133, Key#102, Tempo#103, Loudness (db)#104, Energy#105, Danceability#106, Positiveness#107, Speechiness#108, Liveness#109, Acousticness#110, Instrumentalness#111, Good for Party#77, Good for Work/Study#78, Good for Relaxation/Meditation#79, Good for Exercise#80, Good for Running#81, Good for Yoga/Stretching#82, Good for Driving#83, Genre#162, ... 1 more fields]
+                           +- Join LeftOuter, (song_id#17 = song_id#154)
+                              :- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133, Key#102, Tempo#103, Loudness (db)#104, Energy#105, Danceability#106, Positiveness#107, Speechiness#108, Liveness#109, Acousticness#110, Instrumentalness#111, Good for Party#77, Good for Work/Study#78, Good for Relaxation/Meditation#79, Good for Exercise#80, Good for Running#81, Good for Yoga/Stretching#82, Good for Driving#83, Genre#162]
+                              :  +- Join LeftOuter, (song_id#17 = song_id#333)
+                              :     :- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133, Key#102, Tempo#103, Loudness (db)#104, Energy#105, Danceability#106, Positiveness#107, Speechiness#108, Liveness#109, Acousticness#110, Instrumentalness#111, Good for Party#77, Good for Work/Study#78, Good for Relaxation/Meditation#79, Good for Exercise#80, Good for Running#81, Good for Yoga/Stretching#82, Good for Driving#83]
+                              :     :  +- Join LeftOuter, (song_id#17 = song_id#76)
+                              :     :     :- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133, Key#102, Tempo#103, Loudness (db)#104, Energy#105, Danceability#106, Positiveness#107, Speechiness#108, Liveness#109, Acousticness#110, Instrumentalness#111]
+                              :     :     :  +- Join LeftOuter, (song_id#17 = song_id#101)
+                              :     :     :     :- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133]
+                              :     :     :     :  +- Join LeftOuter, (song_id#17 = song_id#129)
+                              :     :     :     :     :- Relation [song_id#17,Artist(s)#18,song#19,Album#20] csv
+                              :     :     :     :     +- Project [song_id#129, Release Date#135, length_seconds#136, Popularity#133]
+                              :     :     :     :        +- Project [song_id#129, Release Date#135, Length#131, emotion#132, Popularity#133, CASE WHEN RLIKE(Length#131, ^\d{1,2}:\d{2}$) THEN ((cast(split(Length#131, :, -1)[0] as int) * 60) + cast(split(Length#131, :, -1)[1] as int)) ELSE cast(null as int) END AS length_seconds#136]
+                              :     :     :     :           +- Project [song_id#129, to_date(Release Date#130, Some(yyyy-MM-dd), Some(Europe/Kiev), true) AS Release Date#135, Length#131, emotion#132, Popularity#133]
+                              :     :     :     :              +- Relation [song_id#129,Release Date#130,Length#131,emotion#132,Popularity#133] csv
+                              :     :     :     +- Relation [song_id#101,Key#102,Tempo#103,Loudness (db)#104,Energy#105,Danceability#106,Positiveness#107,Speechiness#108,Liveness#109,Acousticness#110,Instrumentalness#111] csv
+                              :     :     +- Relation [song_id#76,Good for Party#77,Good for Work/Study#78,Good for Relaxation/Meditation#79,Good for Exercise#80,Good for Running#81,Good for Yoga/Stretching#82,Good for Driving#83] csv
+                              :     +- Aggregate [song_id#333], [song_id#333, concat_ws(, , sort_array(collect_set(genre_name#337, 0, 0), true)) AS Genre#162]
+                              :        +- Deduplicate [song_id#333, genre_name#337]
+                              :           +- Filter NOT (genre_name#337 = )
+                              :              +- Filter isnotnull(genre_name#337)
+                              :                 +- Project [song_id#333, trim(lower(genre_name#335), None) AS genre_name#337]
+                              :                    +- Project [genre_id#334, song_id#333, genre_name#335]
+                              :                       +- Join Inner, (genre_id#334 = genre_id#336)
+                              :                          :- Relation [song_id#333,genre_id#334] csv
+                              :                          +- Relation [genre_name#335,genre_id#336] csv
+                              +- Project [song_id#154, similar_artist#156 AS Similar Artist 1#167]
+                                 +- Filter (similar_rank#155 = 1)
+                                    +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+
+== Analyzed Logical Plan ==
+genre_name: string, tracks_count: bigint, avg_instrumentalness: double
+GlobalLimit 5
++- LocalLimit 5
+   +- Sort [avg_instrumentalness#341 DESC NULLS LAST], true
+      +- Filter (tracks_count#340L >= cast(100 as bigint))
+         +- Aggregate [genre_name#161], [genre_name#161, count(distinct song_id#57) AS tracks_count#340L, round(avg(Instrumentalness#111), 4) AS avg_instrumentalness#341]
+            +- Filter isnotnull(Instrumentalness#111)
+               +- Project [song_id#57, genre_name#161, Instrumentalness#111]
+                  +- Join Inner, (song_id#57 = song_id#17)
+                     :- Deduplicate [song_id#57, genre_name#161]
+                     :  +- Filter NOT (genre_name#161 = )
+                     :     +- Filter isnotnull(genre_name#161)
+                     :        +- Project [song_id#57, trim(lower(genre_name#38), None) AS genre_name#161]
+                     :           +- Project [genre_id#58, song_id#57, genre_name#38]
+                     :              +- Join Inner, (genre_id#58 = genre_id#39)
+                     :                 :- Relation [song_id#57,genre_id#58] csv
+                     :                 +- Relation [genre_name#38,genre_id#39] csv
+                     +- Project [song_id#17, Instrumentalness#111]
+                        +- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133, Key#102, Tempo#103, Loudness (db)#104, Energy#105, Danceability#106, Positiveness#107, Speechiness#108, Liveness#109, Acousticness#110, Instrumentalness#111, Good for Party#77, Good for Work/Study#78, Good for Relaxation/Meditation#79, Good for Exercise#80, Good for Running#81, Good for Yoga/Stretching#82, Good for Driving#83, Genre#162, ... 1 more fields]
+                           +- Join LeftOuter, (song_id#17 = song_id#154)
+                              :- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133, Key#102, Tempo#103, Loudness (db)#104, Energy#105, Danceability#106, Positiveness#107, Speechiness#108, Liveness#109, Acousticness#110, Instrumentalness#111, Good for Party#77, Good for Work/Study#78, Good for Relaxation/Meditation#79, Good for Exercise#80, Good for Running#81, Good for Yoga/Stretching#82, Good for Driving#83, Genre#162]
+                              :  +- Join LeftOuter, (song_id#17 = song_id#333)
+                              :     :- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133, Key#102, Tempo#103, Loudness (db)#104, Energy#105, Danceability#106, Positiveness#107, Speechiness#108, Liveness#109, Acousticness#110, Instrumentalness#111, Good for Party#77, Good for Work/Study#78, Good for Relaxation/Meditation#79, Good for Exercise#80, Good for Running#81, Good for Yoga/Stretching#82, Good for Driving#83]
+                              :     :  +- Join LeftOuter, (song_id#17 = song_id#76)
+                              :     :     :- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133, Key#102, Tempo#103, Loudness (db)#104, Energy#105, Danceability#106, Positiveness#107, Speechiness#108, Liveness#109, Acousticness#110, Instrumentalness#111]
+                              :     :     :  +- Join LeftOuter, (song_id#17 = song_id#101)
+                              :     :     :     :- Project [song_id#17, Artist(s)#18, song#19, Album#20, Release Date#135, length_seconds#136, Popularity#133]
+                              :     :     :     :  +- Join LeftOuter, (song_id#17 = song_id#129)
+                              :     :     :     :     :- Relation [song_id#17,Artist(s)#18,song#19,Album#20] csv
+                              :     :     :     :     +- Project [song_id#129, Release Date#135, length_seconds#136, Popularity#133]
+                              :     :     :     :        +- Project [song_id#129, Release Date#135, Length#131, emotion#132, Popularity#133, CASE WHEN RLIKE(Length#131, ^\d{1,2}:\d{2}$) THEN ((cast(split(Length#131, :, -1)[0] as int) * 60) + cast(split(Length#131, :, -1)[1] as int)) ELSE cast(null as int) END AS length_seconds#136]
+                              :     :     :     :           +- Project [song_id#129, to_date(Release Date#130, Some(yyyy-MM-dd), Some(Europe/Kiev), true) AS Release Date#135, Length#131, emotion#132, Popularity#133]
+                              :     :     :     :              +- Relation [song_id#129,Release Date#130,Length#131,emotion#132,Popularity#133] csv
+                              :     :     :     +- Relation [song_id#101,Key#102,Tempo#103,Loudness (db)#104,Energy#105,Danceability#106,Positiveness#107,Speechiness#108,Liveness#109,Acousticness#110,Instrumentalness#111] csv
+                              :     :     +- Relation [song_id#76,Good for Party#77,Good for Work/Study#78,Good for Relaxation/Meditation#79,Good for Exercise#80,Good for Running#81,Good for Yoga/Stretching#82,Good for Driving#83] csv
+                              :     +- Aggregate [song_id#333], [song_id#333, concat_ws(, , sort_array(collect_set(genre_name#337, 0, 0), true)) AS Genre#162]
+                              :        +- Deduplicate [song_id#333, genre_name#337]
+                              :           +- Filter NOT (genre_name#337 = )
+                              :              +- Filter isnotnull(genre_name#337)
+                              :                 +- Project [song_id#333, trim(lower(genre_name#335), None) AS genre_name#337]
+                              :                    +- Project [genre_id#334, song_id#333, genre_name#335]
+                              :                       +- Join Inner, (genre_id#334 = genre_id#336)
+                              :                          :- Relation [song_id#333,genre_id#334] csv
+                              :                          +- Relation [genre_name#335,genre_id#336] csv
+                              +- Project [song_id#154, similar_artist#156 AS Similar Artist 1#167]
+                                 +- Filter (similar_rank#155 = 1)
+                                    +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+
+== Optimized Logical Plan ==
+GlobalLimit 5
++- LocalLimit 5
+   +- Sort [avg_instrumentalness#341 DESC NULLS LAST], true
+      +- Filter (tracks_count#340L >= 100)
+         +- Aggregate [genre_name#161], [genre_name#161, count(distinct song_id#57) AS tracks_count#340L, round(avg(Instrumentalness#111), 4) AS avg_instrumentalness#341]
+            +- Project [song_id#57, genre_name#161, Instrumentalness#111]
+               +- Join Inner, (song_id#57 = song_id#17)
+                  :- Aggregate [song_id#57, genre_name#161], [song_id#57, genre_name#161]
+                  :  +- Project [song_id#57, trim(lower(genre_name#38), None) AS genre_name#161]
+                  :     +- Join Inner, (genre_id#58 = genre_id#39)
+                  :        :- Filter (isnotnull(genre_id#58) AND isnotnull(song_id#57))
+                  :        :  +- Relation [song_id#57,genre_id#58] csv
+                  :        +- Filter ((isnotnull(trim(lower(genre_name#38), None)) AND NOT (trim(lower(genre_name#38), None) = )) AND isnotnull(genre_id#39))
+                  :           +- Relation [genre_name#38,genre_id#39] csv
+                  +- Project [song_id#17, Instrumentalness#111]
+                     +- Join LeftOuter, (song_id#17 = song_id#154)
+                        :- Project [song_id#17, Instrumentalness#111]
+                        :  +- Join LeftOuter, (song_id#17 = song_id#76)
+                        :     :- Project [song_id#17, Instrumentalness#111]
+                        :     :  +- Join Inner, (song_id#17 = song_id#101)
+                        :     :     :- Project [song_id#17]
+                        :     :     :  +- Join LeftOuter, (song_id#17 = song_id#129)
+                        :     :     :     :- Project [song_id#17]
+                        :     :     :     :  +- Filter isnotnull(song_id#17)
+                        :     :     :     :     +- Relation [song_id#17,Artist(s)#18,song#19,Album#20] csv
+                        :     :     :     +- Project [song_id#129]
+                        :     :     :        +- Filter isnotnull(song_id#129)
+                        :     :     :           +- Relation [song_id#129,Release Date#130,Length#131,emotion#132,Popularity#133] csv
+                        :     :     +- Project [song_id#101, Instrumentalness#111]
+                        :     :        +- Filter (isnotnull(Instrumentalness#111) AND isnotnull(song_id#101))
+                        :     :           +- Relation [song_id#101,Key#102,Tempo#103,Loudness (db)#104,Energy#105,Danceability#106,Positiveness#107,Speechiness#108,Liveness#109,Acousticness#110,Instrumentalness#111] csv
+                        :     +- Project [song_id#76]
+                        :        +- Filter isnotnull(song_id#76)
+                        :           +- Relation [song_id#76,Good for Party#77,Good for Work/Study#78,Good for Relaxation/Meditation#79,Good for Exercise#80,Good for Running#81,Good for Yoga/Stretching#82,Good for Driving#83] csv
+                        +- Project [song_id#154]
+                           +- Filter ((isnotnull(similar_rank#155) AND (similar_rank#155 = 1)) AND isnotnull(song_id#154))
+                              +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=false
++- TakeOrderedAndProject(limit=5, orderBy=[avg_instrumentalness#341 DESC NULLS LAST], output=[genre_name#161,tracks_count#340L,avg_instrumentalness#341])
+   +- Filter (tracks_count#340L >= 100)
+      +- HashAggregate(keys=[genre_name#161], functions=[avg(Instrumentalness#111), count(distinct song_id#57)], output=[genre_name#161, tracks_count#340L, avg_instrumentalness#341])
+         +- Exchange hashpartitioning(genre_name#161, 200), ENSURE_REQUIREMENTS, [plan_id=3582]
+            +- HashAggregate(keys=[genre_name#161], functions=[merge_avg(Instrumentalness#111), partial_count(distinct song_id#57)], output=[genre_name#161, sum#349, count#350L, count#353L])
+               +- HashAggregate(keys=[genre_name#161, song_id#57], functions=[merge_avg(Instrumentalness#111)], output=[genre_name#161, song_id#57, sum#349, count#350L])
+                  +- HashAggregate(keys=[genre_name#161, song_id#57], functions=[partial_avg(Instrumentalness#111)], output=[genre_name#161, song_id#57, sum#349, count#350L])
+                     +- Project [song_id#57, genre_name#161, Instrumentalness#111]
+                        +- SortMergeJoin [song_id#57], [song_id#17], Inner
+                           :- Sort [song_id#57 ASC NULLS FIRST], false, 0
+                           :  +- Exchange hashpartitioning(song_id#57, 200), ENSURE_REQUIREMENTS, [plan_id=3574]
+                           :     +- HashAggregate(keys=[song_id#57, genre_name#161], functions=[], output=[song_id#57, genre_name#161])
+                           :        +- Exchange hashpartitioning(song_id#57, genre_name#161, 200), ENSURE_REQUIREMENTS, [plan_id=3545]
+                           :           +- HashAggregate(keys=[song_id#57, genre_name#161], functions=[], output=[song_id#57, genre_name#161])
+                           :              +- Project [song_id#57, trim(lower(genre_name#38), None) AS genre_name#161]
+                           :                 +- BroadcastHashJoin [genre_id#58], [genre_id#39], Inner, BuildRight, false
+                           :                    :- Filter (isnotnull(genre_id#58) AND isnotnull(song_id#57))
+                           :                    :  +- FileScan csv [song_id#57,genre_id#58] Batched: false, DataFilters: [isnotnull(genre_id#58), isnotnull(song_id#57)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(genre_id), IsNotNull(song_id)], ReadSchema: struct<song_id:string,genre_id:string>
+                           :                    +- BroadcastExchange HashedRelationBroadcastMode(List(input[1, string, false]),false), [plan_id=3540]
+                           :                       +- Filter ((isnotnull(trim(lower(genre_name#38), None)) AND NOT (trim(lower(genre_name#38), None) = )) AND isnotnull(genre_id#39))
+                           :                          +- FileScan csv [genre_name#38,genre_id#39] Batched: false, DataFilters: [isnotnull(trim(lower(genre_name#38), None)), NOT (trim(lower(genre_name#38), None) = ), isnotnul..., Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(genre_id)], ReadSchema: struct<genre_name:string,genre_id:string>
+                           +- Project [song_id#17, Instrumentalness#111]
+                              +- SortMergeJoin [song_id#17], [song_id#154], LeftOuter
+                                 :- Project [song_id#17, Instrumentalness#111]
+                                 :  +- SortMergeJoin [song_id#17], [song_id#76], LeftOuter
+                                 :     :- Project [song_id#17, Instrumentalness#111]
+                                 :     :  +- SortMergeJoin [song_id#17], [song_id#101], Inner
+                                 :     :     :- Project [song_id#17]
+                                 :     :     :  +- SortMergeJoin [song_id#17], [song_id#129], LeftOuter
+                                 :     :     :     :- Sort [song_id#17 ASC NULLS FIRST], false, 0
+                                 :     :     :     :  +- Exchange hashpartitioning(song_id#17, 200), ENSURE_REQUIREMENTS, [plan_id=3548]
+                                 :     :     :     :     +- Filter isnotnull(song_id#17)
+                                 :     :     :     :        +- FileScan csv [song_id#17] Batched: false, DataFilters: [isnotnull(song_id#17)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(song_id)], ReadSchema: struct<song_id:string>
+                                 :     :     :     +- Sort [song_id#129 ASC NULLS FIRST], false, 0
+                                 :     :     :        +- Exchange hashpartitioning(song_id#129, 200), ENSURE_REQUIREMENTS, [plan_id=3549]
+                                 :     :     :           +- Filter isnotnull(song_id#129)
+                                 :     :     :              +- FileScan csv [song_id#129] Batched: false, DataFilters: [isnotnull(song_id#129)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(song_id)], ReadSchema: struct<song_id:string>
+                                 :     :     +- Sort [song_id#101 ASC NULLS FIRST], false, 0
+                                 :     :        +- Exchange hashpartitioning(song_id#101, 200), ENSURE_REQUIREMENTS, [plan_id=3556]
+                                 :     :           +- Filter (isnotnull(Instrumentalness#111) AND isnotnull(song_id#101))
+                                 :     :              +- FileScan csv [song_id#101,Instrumentalness#111] Batched: false, DataFilters: [isnotnull(Instrumentalness#111), isnotnull(song_id#101)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(Instrumentalness), IsNotNull(song_id)], ReadSchema: struct<song_id:string,Instrumentalness:double>
+                                 :     +- Sort [song_id#76 ASC NULLS FIRST], false, 0
+                                 :        +- Exchange hashpartitioning(song_id#76, 200), ENSURE_REQUIREMENTS, [plan_id=3562]
+                                 :           +- Filter isnotnull(song_id#76)
+                                 :              +- FileScan csv [song_id#76] Batched: false, DataFilters: [isnotnull(song_id#76)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(song_id)], ReadSchema: struct<song_id:string>
+                                 +- Sort [song_id#154 ASC NULLS FIRST], false, 0
+                                    +- Exchange hashpartitioning(song_id#154, 200), ENSURE_REQUIREMENTS, [plan_id=3568]
+                                       +- Project [song_id#154]
+                                          +- Filter ((isnotnull(similar_rank#155) AND (similar_rank#155 = 1)) AND isnotnull(song_id#154))
+                                             +- FileScan csv [song_id#154,similar_rank#155] Batched: false, DataFilters: [isnotnull(similar_rank#155), (similar_rank#155 = 1), isnotnull(song_id#154)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(similar_rank), EqualTo(similar_rank,1), IsNotNull(song_id)], ReadSchema: struct<song_id:string,similar_rank:int>

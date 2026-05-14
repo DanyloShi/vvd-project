@@ -1,0 +1,265 @@
+genre_name,genre_rank,Artist(s),song,Popularity,Danceability
+acoustic,1,dandelion hands,It's You,77,41.0
+acoustic,2,Take Care,Think Of Me,74,21.0
+acoustic,3,dandelion hands,How To Never Stop Being Sad,73,41.0
+alt-country,1,Mumford & Sons,Believe,70,49.0
+alt-country,2,Mumford & Sons,Forever,70,49.0
+alt-country,3,Mumford & Sons,Ngamila,70,49.0
+alternative,1,Lana Del Rey,Yes To Heaven,88,49.0
+alternative,2,Lana Del Rey,Young And Beautiful,87,32.0
+alternative,3,Foster The People,After The Ball,86,73.0
+alternative rock,1,Teddy Swims,Come ye disconsolate,91,56.0
+alternative rock,2,Teddy Swims,Celebrate,91,56.0
+alternative rock,3,Arctic Monkeys,-,91,46.0
+ambient,1,Cigarettes After Sex,Cry,83,41.0
+ambient,2,Sufjan Stevens,Sleeping Bear Sault Saint Marie,79,44.0
+ambient,3,Sufjan Stevens,Back to Oz,79,44.0
+black metal,1,Justin Bieber,This Dream Is Too Good,89,60.0
+black metal,2,Justin Bieber,Madly In Love (Bigger Than Life),89,60.0
+black metal,3,Justin Bieber,Love Yourself,86,61.0
+blues,1,Hozier,Problem BBC Radio 1 Live Lounge,89,74.0
+blues,2,Hozier,Nina Cried Power Live From Dublin Academy,89,74.0
+blues,3,Hozier,My Lagan Love,88,74.0
+britpop,1,Tears For Fears,Everybody Wants To Rule The World,89,64.0
+britpop,2,Tears For Fears,No No No,87,64.0
+britpop,3,Tears For Fears,The Big Chair,87,64.0
+chillout,1,Øneheart,Bad Attitudes,71,18.0
+chillout,2,Øneheart,Perestroika,71,18.0
+chillout,3,Øneheart,Gorbachev,71,18.0
+chillwave,1,SZA,Passport,90,41.0
+chillwave,2,SZA,The Weekend Funk Wav Remix,90,41.0
+chillwave,3,SZA,The Other Side,90,41.0
+christian,1,Lauren Daigle,Rescue Soul,74,29.0
+christian,2,Lauren Daigle,OLord,73,49.0
+christian,3,Lauren Daigle,Look Up Child,72,49.0
+classic rock,1,Creedence Clearwater Revival,Sweet Home Alabama,89,74.0
+classic rock,2,Creedence Clearwater Revival,Feeling Blue,89,74.0
+classic rock,3,Creedence Clearwater Revival,Looking For A Reason,89,74.0
+classical,1,Billy Joel,An Innocent Man,84,70.0
+classical,2,Billy Joel,Rockin' In The Free World,84,70.0
+classical,3,Billy Joel,Uptown Girl,84,70.0
+cloud rap,1,Ruth B.,Safe Haven,86,61.0
+cloud rap,2,Ruth B.,Dandelions,86,61.0
+cloud rap,3,Lil Uzi Vert,Old Niggas Hatin,82,77.0
+comedy,1,Carl Douglas,Kung Fu,72,62.0
+comedy,2,Carl Douglas,ASIAN KUNG-FU GENERATION - Love song of new century English Translation,71,62.0
+comedy,3,Carl Douglas,Kung Fu Fighting,71,62.0
+country,1,Taylor Swift,This Is Really Happening,93,55.0
+country,2,Taylor Swift,Formula 1 2016 Setlist,93,55.0
+country,3,Taylor Swift,Fearless Tour Setlist,92,55.0
+dance,1,Rihanna,Love On The Run,87,51.0
+dance,2,Chris Brown,Hang All The Mistletoe,87,41.0
+dance,3,Chris Brown,Holding On,87,41.0
+dancehall,1,Tory Lanez,Look No Further,84,64.0
+dancehall,2,Tory Lanez,Out Of Center,84,64.0
+dancehall,3,Tory Lanez,Accidents Happen,84,64.0
+death metal,1,Nickelback,Just Mine!,85,45.0
+death metal,2,Nickelback,A Promise Fufilled,85,45.0
+death metal,3,Nickelback,Truck,85,45.0
+deathcore,1,Slaughter to Prevail,Demolisher,61,21.0
+deathcore,2,Slaughter to Prevail,Baba Yaga Romanized Lyrics,59,25.0
+deathcore,3,Emmure,E,57,51.0
+disco,1,Justin Timberlake,Why When How,86,69.0
+disco,2,Justin Timberlake,Good Foot,86,69.0
+disco,3,Justin Timberlake,Am I Worthy Of,86,69.0
+doom metal,1,Type O Negative,Life Is Killing Me,69,47.0
+doom metal,2,Type O Negative,I Dont Wanna Be Me,69,47.0
+doom metal,3,Type O Negative,Untitled Intro,69,47.0
+dream pop,1,Grouper,Poison Tree,76,22.0
+dream pop,2,Chromatics,Just Like You,75,67.0
+dream pop,3,Chromatics,Girls Just Wanna Have Some,75,67.0
+drum and bass,1,PinkPantheress,Tell Me Where You Are,82,83.0
+drum and bass,2,PinkPantheress,Met You,82,83.0
+drum and bass,3,PinkPantheress,Pain,82,83.0
+dub,1,Bruno Major,To Let a Good Thing Die,72,56.0
+dub,2,Bruno Major,Nothing,72,56.0
+dub,3,UB40,Hurry Come On Up,71,96.0
+dubstep,1,The Living Tombstone,My Ordinary Life,72,65.0
+dubstep,2,The Living Tombstone,Gameboy Advance SP Blue Edition Oney Plays,72,65.0
+dubstep,3,The Living Tombstone,Temporary Love - Vylet Cannicore Mix,72,65.0
+electro,1,Aqua,Barbie Girl,76,81.0
+electro,2,Vengaboys,Boom Boom Boom,76,80.0
+electro,3,Alice Deejay,Better Off Alone,76,67.0
+electronic,1,Billie Eilish,H.M.T,100,75.0
+electronic,2,Billie Eilish,So So,99,75.0
+electronic,3,Billie Eilish,Slipping Away Original Mix,99,75.0
+electropop,1,Billie Eilish,H.M.T,100,75.0
+electropop,2,Billie Eilish,So So,99,75.0
+electropop,3,Billie Eilish,Slipping Away Original Mix,99,75.0
+emo,1,Jimmy Eat World,Stuck in the Middle,83,64.0
+emo,2,Jimmy Eat World,Bleed American,82,64.0
+emo,3,Jimmy Eat World,Jimmy,82,64.0
+emo rap,1,The Kid LAROI,25 To Life,88,48.0
+emo rap,2,The Kid LAROI,Disconnected,88,48.0
+emo rap,3,The Kid LAROI,Posed To,88,48.0
+experimental,1,Outkast,Dirt Work,84,84.0
+experimental,2,Outkast,Speedballin',84,84.0
+experimental,3,Outkast,Tough Guy,84,84.0
+folk,1,Ed Sheeran,Outro,86,60.0
+folk,2,Ed Sheeran,I Don’t Care,86,60.0
+folk,3,Ed Sheeran,Shape of You REMIX,85,82.0
+funk,1,Harry Styles,As It Was,92,52.0
+funk,2,Harry Styles,Oh Anna,92,52.0
+funk,3,Harry Styles,The Chain,92,52.0
+garage rock,1,Iggy Pop,Dancing With The Big Boys,73,50.0
+garage rock,2,Iggy Pop,Look Away,73,50.0
+garage rock,3,Iggy Pop,Risky,73,50.0
+gospel,1,Benson Boone,Branches,91,47.0
+gospel,2,Benson Boone,Inevitable,91,47.0
+gospel,3,Benson Boone,SUNRISE,91,47.0
+grime,1,Central Cee,GETAWAY,80,91.0
+grime,2,Central Cee,Letgo,75,74.0
+grime,3,Central Cee,Loading,70,85.0
+grunge,1,Foo Fighters,Throwing Needles,86,41.0
+grunge,2,Foo Fighters,Freaks By Live,86,41.0
+grunge,3,Foo Fighters,Once  For All Demo,84,41.0
+hard rock,1,The White Stripes,De Ballit Of De Boll Weevil,87,74.0
+hard rock,2,V,Love Story vs. Finally Bushwacka Bootleg Version,87,63.0
+hard rock,3,V,Love Story,87,63.0
+hardcore,1,A Day To Remember,The Down Syndrome,72,59.0
+hardcore,2,AFI,Miss Murder,70,31.0
+hardcore,3,A Day To Remember,The Downfall of Us All,67,59.0
+heavy metal,1,Bon Jovi,Life's Too Short For Days Like These,88,53.0
+heavy metal,2,Guns N' Roses,Imagine,88,45.0
+heavy metal,3,Guns N' Roses,Raid N' The Bedouins,88,45.0
+hip hop,1,Kendrick Lamar,Swimming Pools Demo,97,90.0
+hip hop,2,Kendrick Lamar,All the Stars,97,90.0
+hip hop,3,Kendrick Lamar,Kendrick Lamar,97,90.0
+hip-hop,1,Eminem,Steve Berman Skit 2000,94,94.0
+hip-hop,2,Eminem,Bad Guys Always Die,94,94.0
+hip-hop,3,Eminem,HOUDINI,94,94.0
+house,1,Calvin Harris,Summer,86,60.0
+house,2,Avicii,Heart Upon My Sleeve,86,53.0
+house,3,Avicii,Wake Me Up,86,53.0
+indie,1,Arctic Monkeys,-,91,46.0
+indie,2,Arctic Monkeys,I Wanna Be Yours,91,46.0
+indie,3,Arctic Monkeys,Drown,90,46.0
+indie pop,1,Myles Smith,Myles,93,64.0
+indie pop,2,The Neighbourhood,Sweater Weather The Neighbourhood Remix,90,61.0
+indie pop,3,The Neighbourhood,Sweater Weather Little Daylight Remix,90,61.0
+indie rock,1,Myles Smith,Myles,93,64.0
+indie rock,2,Arctic Monkeys,-,91,46.0
+indie rock,3,Arctic Monkeys,I Wanna Be Yours,91,46.0
+industrial,1,Mr. Belt & Wezol,Finally - Radio Edit,83,76.0
+industrial,2,Rammstein,Buck Dich (English),80,51.0
+industrial,3,Rammstein,Fog,80,51.0
+j-pop,1,LISA,L-O-V-E,93,67.0
+j-pop,2,LISA,ONE OK ROCK - Wherever you are English Translation,92,67.0
+j-pop,3,LISA,LISA - LALISA Romanized,91,67.0
+jazz,1,J. Cole,Can I Holla At Ya,90,69.0
+jazz,2,The Walters,I Love You So,87,57.0
+jazz,3,J. Cole,1985 DJ Premier 1966 Remix,86,69.0
+k-pop,1,Jung Kook,2U Cover,90,71.0
+k-pop,2,Jung Kook,Never Not Cover,90,66.0
+k-pop,3,Jung Kook,Hate Everything Cover,88,66.0
+latin,1,Miguel,All I Want Is You,86,68.0
+latin,2,Miguel,Sure Thing,86,68.0
+latin,3,Miguel,Sure Thing - Zouk Remix,86,68.0
+lo-fi,1,TV Girl,Rodeo Clowns,87,56.0
+lo-fi,2,TV Girl,This Aint Living,87,56.0
+lo-fi,3,TV Girl,Shooting Hoops,87,56.0
+math rock,1,Portugal. The Man,The Woods,82,80.0
+math rock,2,Portugal. The Man,Feel It Still,81,80.0
+math rock,3,Foals,10000 Feet,66,64.0
+melodic death metal,1,In Flames,Clayman,62,42.0
+melodic death metal,2,In Flames,Only for the Weak,62,42.0
+melodic death metal,3,In Flames,Not Alone Bonus Track,62,42.0
+metal,1,Linkin Park,In The End,89,56.0
+metal,2,Bon Jovi,Life's Too Short For Days Like These,88,53.0
+metal,3,Linkin Park,Two Worlds,88,50.0
+metalcore,1,Bring Me The Horizon,Drown Acoustic,78,43.0
+metalcore,2,Bring Me The Horizon,Can You Feel My Heart Remix,77,43.0
+metalcore,3,Bring Me The Horizon,Dior round my neck,77,43.0
+new wave,1,Bruno Mars,Circles,91,73.0
+new wave,2,Bruno Mars,Dance In The Mirror,91,73.0
+new wave,3,Bruno Mars,Locked Out Of Heaven,91,73.0
+nu metal,1,Limp Bizkit,Middle Finger,82,43.0
+nu metal,2,Limp Bizkit,Armpit,82,43.0
+nu metal,3,Limp Bizkit,Radio Sucks Interlude,82,43.0
+pop,1,Billie Eilish,H.M.T,100,75.0
+pop,2,Billie Eilish,So So,99,75.0
+pop,3,Billie Eilish,Slipping Away Original Mix,99,75.0
+pop punk,1,Smash Mouth,All Ster,80,73.0
+pop punk,2,Smash Mouth,All Star,80,73.0
+pop punk,3,Smash Mouth,Google Translate Sings ALL STAR by Smash Mouth,80,73.0
+pop rock,1,LISA,L-O-V-E,93,67.0
+pop rock,2,LISA,ONE OK ROCK - Wherever you are English Translation,92,67.0
+pop rock,3,LISA,LISA - LALISA Romanized,91,67.0
+post-hardcore,1,Falling In Reverse,Shes a Rebel,75,46.0
+post-hardcore,2,Falling In Reverse,Monster You Made,75,46.0
+post-hardcore,3,Blood Orange,Do You See My Skin Through the Flames?,74,81.0
+post-punk,1,Cage The Elephant,Daydreams,81,64.0
+post-punk,2,Cage The Elephant,Cigarette Daydreams,80,64.0
+post-punk,3,Nico & Vinz,Am I Wrong  Remix,78,73.0
+power metal,1,Sabaton,The Last Stand,68,52.0
+power metal,2,Sabaton,To Hell and Back,67,54.0
+power metal,3,Sabaton,Long Lost Love,66,55.0
+progressive metal,1,Metallica,The Chase Is Better Than The Catch,82,58.0
+progressive metal,2,Metallica,Smoke On The Water,82,58.0
+progressive metal,3,Metallica,The Ecstasy of Gold / Enter Sandman Live,81,58.0
+progressive rock,1,Journey,Jo,87,50.0
+progressive rock,2,TOTO,Google Translate Sings: Africa by Toto,86,67.0
+progressive rock,3,TOTO,Africa,86,67.0
+psychedelic,1,Black Pumas,Colors,72,55.0
+psychedelic,2,Boards of Canada,From One Source All Things Depend,59,24.0
+psychedelic,3,Skinshape,I Didnt Know,56,65.0
+psychedelic rock,1,Fleetwood Mac,Beamer Bad Boys,86,83.0
+psychedelic rock,2,Fleetwood Mac,Ill Be There,86,83.0
+psychedelic rock,3,Fleetwood Mac,Hoe in the Past,86,83.0
+punk,1,The Police,Every Breath You Take,87,82.0
+punk,2,The Offspring,The Kids Aren't Alright,85,52.0
+punk,3,The Offspring,Cocktail,85,52.0
+punk rock,1,The Goo Goo Dolls,Dizzy,87,32.0
+punk rock,2,Olivia Rodrigo,Miss This,86,51.0
+punk rock,3,Olivia Rodrigo,Pretender,86,51.0
+rap,1,Kendrick Lamar,Swimming Pools Demo,97,90.0
+rap,2,Kendrick Lamar,All the Stars,97,90.0
+rap,3,Kendrick Lamar,Kendrick Lamar,97,90.0
+reggae,1,Bob Marley & The Wailers,You,83,92.0
+reggae,2,YG Marley,Praise God Demo,82,66.0
+reggae,3,YG Marley,MAD,82,66.0
+reggaeton,1,Farruko,Farruko - Pepas English Translation,79,76.0
+reggaeton,2,Farruko,Anuel AA Farruko  Zion - Que Se Joda English Translation,79,76.0
+reggaeton,3,Farruko,Rvssian Farruko  Bad Bunny - Krippy Kush English Translation,79,76.0
+rnb,1,The Weeknd,The Hills,88,58.0
+rnb,2,Frank Ocean,Girlfriends Best Friend,88,55.0
+rnb,3,Frank Ocean,Holly Baby,88,55.0
+rock,1,Miley Cyrus,Que Sera!,94,71.0
+rock,2,Miley Cyrus,All The Time,94,71.0
+rock,3,Miley Cyrus,Old Blue Jeans,94,71.0
+screamo,1,Falling In Reverse,Shes a Rebel,75,46.0
+screamo,2,Falling In Reverse,Monster You Made,75,46.0
+screamo,3,Falling In Reverse,Popular Monster,74,46.0
+shoegaze,1,Blur,Song 2 (Original Lyrics),83,67.0
+shoegaze,2,Mazzy Star,It Speaks The Distance,83,42.0
+shoegaze,3,Mazzy Star,Where Did You Run To,83,42.0
+soul,1,Natasha Bedingfield,Sound Siren,94,71.0
+soul,2,Natasha Bedingfield,"Actress, Model...",94,71.0
+soul,3,Harry Styles,As It Was,92,52.0
+soundtrack,1,Looking Glass,Cigarette,78,72.0
+soundtrack,2,Looking Glass,Stupid In Love,78,72.0
+soundtrack,3,Looking Glass,Brandy Youre A Fine Girl,78,72.0
+swing,1,J. Cole,Can I Holla At Ya,90,69.0
+swing,2,J. Cole,1985 DJ Premier 1966 Remix,86,69.0
+swing,3,J. Cole,Wait For Tomorrow,86,69.0
+synthpop,1,Charli xcx,Ride,89,86.0
+synthpop,2,Charli xcx,Painkiller,89,86.0
+synthpop,3,Charli xcx,Can You Please Shut Up?,89,86.0
+techno,1,MAGIC!,Rude,83,77.0
+techno,2,MAGIC!,Dont Kill the Magic,83,77.0
+techno,3,Mr. President,Naomi  Kate,73,83.0
+thrash metal,1,Slayer,Born To Be Wild,76,22.0
+thrash metal,2,Pantera,Tell Me If You Want It,75,43.0
+thrash metal,3,Slayer,Hand Of Doom,75,22.0
+trance,1,Charli xcx,Ride,89,86.0
+trance,2,Charli xcx,Painkiller,89,86.0
+trance,3,Charli xcx,Can You Please Shut Up?,89,86.0
+trap,1,Ariana Grande,Lady Marmalade,94,79.0
+trap,2,Ariana Grande,Not Afraid of Love,90,64.0
+trap,3,Ariana Grande,Bad to You Demo,90,64.0
+trip-hop,1,Glass Animals,Space Ghost Coast To Coast Remix,87,76.0
+trip-hop,2,Glass Animals,Lose Control,87,76.0
+trip-hop,3,Glass Animals,Animals,87,76.0
+worship,1,Rend Collective,My Lighthouse,64,55.0
+worship,2,Rend Collective,Build Your Kingdom Here,59,46.0
+worship,3,Rend Collective,Counting Every Blessing,58,55.0

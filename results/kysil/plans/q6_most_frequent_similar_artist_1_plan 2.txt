@@ -1,0 +1,39 @@
+== Parsed Logical Plan ==
+GlobalLimit 2000
++- LocalLimit 2000
+   +- Sort [recommended_count#574L DESC NULLS LAST], true
+      +- Aggregate [similar_artist#156], [similar_artist#156, count(1) AS recommended_count#574L]
+         +- Filter NOT (trim(similar_artist#156, None) = )
+            +- Filter isnotnull(similar_artist#156)
+               +- Filter (similar_rank#155 = 1)
+                  +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+
+== Analyzed Logical Plan ==
+similar_artist: string, recommended_count: bigint
+GlobalLimit 2000
++- LocalLimit 2000
+   +- Sort [recommended_count#574L DESC NULLS LAST], true
+      +- Aggregate [similar_artist#156], [similar_artist#156, count(1) AS recommended_count#574L]
+         +- Filter NOT (trim(similar_artist#156, None) = )
+            +- Filter isnotnull(similar_artist#156)
+               +- Filter (similar_rank#155 = 1)
+                  +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+
+== Optimized Logical Plan ==
+GlobalLimit 2000
++- LocalLimit 2000
+   +- Sort [recommended_count#574L DESC NULLS LAST], true
+      +- Aggregate [similar_artist#156], [similar_artist#156, count(1) AS recommended_count#574L]
+         +- Project [similar_artist#156]
+            +- Filter (isnotnull(similar_rank#155) AND ((similar_rank#155 = 1) AND (isnotnull(similar_artist#156) AND NOT (trim(similar_artist#156, None) = ))))
+               +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=false
++- TakeOrderedAndProject(limit=2000, orderBy=[recommended_count#574L DESC NULLS LAST], output=[similar_artist#156,recommended_count#574L])
+   +- HashAggregate(keys=[similar_artist#156], functions=[count(1)], output=[similar_artist#156, recommended_count#574L])
+      +- Exchange hashpartitioning(similar_artist#156, 200), ENSURE_REQUIREMENTS, [plan_id=7044]
+         +- HashAggregate(keys=[similar_artist#156], functions=[partial_count(1)], output=[similar_artist#156, count#582L])
+            +- Project [similar_artist#156]
+               +- Filter (((isnotnull(similar_rank#155) AND (similar_rank#155 = 1)) AND isnotnull(similar_artist#156)) AND NOT (trim(similar_artist#156, None) = ))
+                  +- FileScan csv [similar_rank#155,similar_artist#156] Batched: false, DataFilters: [isnotnull(similar_rank#155), (similar_rank#155 = 1), isnotnull(similar_artist#156), NOT (trim(si..., Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(similar_rank), EqualTo(similar_rank,1), IsNotNull(similar_artist)], ReadSchema: struct<similar_rank:int,similar_artist:string>

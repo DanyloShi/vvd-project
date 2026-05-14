@@ -1,0 +1,82 @@
+== Parsed Logical Plan ==
+'Sort ['avg_similarity_score DESC NULLS LAST, 'songs_with_similars DESC NULLS LAST], true
++- Filter (songs_with_similars#615L >= cast(300 as bigint))
+   +- Aggregate [genre_name#161], [genre_name#161, count(distinct song_id#154) AS songs_with_similars#615L, round(avg(similarity_score#158), 4) AS avg_similarity_score#616]
+      +- Project [song_id#154, similarity_score#158, genre_name#161]
+         +- Join Inner, (song_id#154 = song_id#57)
+            :- Filter isnotnull(similarity_score#158)
+            :  +- Project [song_id#154, similarity_score#158]
+            :     +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+            +- Deduplicate [song_id#57, genre_name#161]
+               +- Filter NOT (genre_name#161 = )
+                  +- Filter isnotnull(genre_name#161)
+                     +- Project [song_id#57, trim(lower(genre_name#38), None) AS genre_name#161]
+                        +- Project [genre_id#58, song_id#57, genre_name#38]
+                           +- Join Inner, (genre_id#58 = genre_id#39)
+                              :- Relation [song_id#57,genre_id#58] csv
+                              +- Relation [genre_name#38,genre_id#39] csv
+
+== Analyzed Logical Plan ==
+genre_name: string, songs_with_similars: bigint, avg_similarity_score: double
+Sort [avg_similarity_score#616 DESC NULLS LAST, songs_with_similars#615L DESC NULLS LAST], true
++- Filter (songs_with_similars#615L >= cast(300 as bigint))
+   +- Aggregate [genre_name#161], [genre_name#161, count(distinct song_id#154) AS songs_with_similars#615L, round(avg(similarity_score#158), 4) AS avg_similarity_score#616]
+      +- Project [song_id#154, similarity_score#158, genre_name#161]
+         +- Join Inner, (song_id#154 = song_id#57)
+            :- Filter isnotnull(similarity_score#158)
+            :  +- Project [song_id#154, similarity_score#158]
+            :     +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+            +- Deduplicate [song_id#57, genre_name#161]
+               +- Filter NOT (genre_name#161 = )
+                  +- Filter isnotnull(genre_name#161)
+                     +- Project [song_id#57, trim(lower(genre_name#38), None) AS genre_name#161]
+                        +- Project [genre_id#58, song_id#57, genre_name#38]
+                           +- Join Inner, (genre_id#58 = genre_id#39)
+                              :- Relation [song_id#57,genre_id#58] csv
+                              +- Relation [genre_name#38,genre_id#39] csv
+
+== Optimized Logical Plan ==
+Sort [avg_similarity_score#616 DESC NULLS LAST, songs_with_similars#615L DESC NULLS LAST], true
++- Filter (songs_with_similars#615L >= 300)
+   +- Aggregate [genre_name#161], [genre_name#161, count(distinct song_id#154) AS songs_with_similars#615L, round(avg(similarity_score#158), 4) AS avg_similarity_score#616]
+      +- Project [song_id#154, similarity_score#158, genre_name#161]
+         +- Join Inner, (song_id#154 = song_id#57)
+            :- Project [song_id#154, similarity_score#158]
+            :  +- Filter (isnotnull(similarity_score#158) AND isnotnull(song_id#154))
+            :     +- Relation [song_id#154,similar_rank#155,similar_artist#156,similar_song#157,similarity_score#158] csv
+            +- Aggregate [song_id#57, genre_name#161], [song_id#57, genre_name#161]
+               +- Project [song_id#57, trim(lower(genre_name#38), None) AS genre_name#161]
+                  +- Join Inner, (genre_id#58 = genre_id#39)
+                     :- Filter (isnotnull(genre_id#58) AND isnotnull(song_id#57))
+                     :  +- Relation [song_id#57,genre_id#58] csv
+                     +- Filter ((isnotnull(trim(lower(genre_name#38), None)) AND NOT (trim(lower(genre_name#38), None) = )) AND isnotnull(genre_id#39))
+                        +- Relation [genre_name#38,genre_id#39] csv
+
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=false
++- Sort [avg_similarity_score#616 DESC NULLS LAST, songs_with_similars#615L DESC NULLS LAST], true, 0
+   +- Exchange rangepartitioning(avg_similarity_score#616 DESC NULLS LAST, songs_with_similars#615L DESC NULLS LAST, 200), ENSURE_REQUIREMENTS, [plan_id=8472]
+      +- Filter (songs_with_similars#615L >= 300)
+         +- HashAggregate(keys=[genre_name#161], functions=[avg(similarity_score#158), count(distinct song_id#154)], output=[genre_name#161, songs_with_similars#615L, avg_similarity_score#616])
+            +- Exchange hashpartitioning(genre_name#161, 200), ENSURE_REQUIREMENTS, [plan_id=8468]
+               +- HashAggregate(keys=[genre_name#161], functions=[merge_avg(similarity_score#158), partial_count(distinct song_id#154)], output=[genre_name#161, sum#624, count#625L, count#628L])
+                  +- HashAggregate(keys=[genre_name#161, song_id#154], functions=[merge_avg(similarity_score#158)], output=[genre_name#161, song_id#154, sum#624, count#625L])
+                     +- HashAggregate(keys=[genre_name#161, song_id#154], functions=[partial_avg(similarity_score#158)], output=[genre_name#161, song_id#154, sum#624, count#625L])
+                        +- Project [song_id#154, similarity_score#158, genre_name#161]
+                           +- SortMergeJoin [song_id#154], [song_id#57], Inner
+                              :- Sort [song_id#154 ASC NULLS FIRST], false, 0
+                              :  +- Exchange hashpartitioning(song_id#154, 200), ENSURE_REQUIREMENTS, [plan_id=8458]
+                              :     +- Filter (isnotnull(similarity_score#158) AND isnotnull(song_id#154))
+                              :        +- FileScan csv [song_id#154,similarity_score#158] Batched: false, DataFilters: [isnotnull(similarity_score#158), isnotnull(song_id#154)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(similarity_score), IsNotNull(song_id)], ReadSchema: struct<song_id:string,similarity_score:double>
+                              +- Sort [song_id#57 ASC NULLS FIRST], false, 0
+                                 +- Exchange hashpartitioning(song_id#57, 200), ENSURE_REQUIREMENTS, [plan_id=8459]
+                                    +- HashAggregate(keys=[song_id#57, genre_name#161], functions=[], output=[song_id#57, genre_name#161])
+                                       +- Exchange hashpartitioning(song_id#57, genre_name#161, 200), ENSURE_REQUIREMENTS, [plan_id=8454]
+                                          +- HashAggregate(keys=[song_id#57, genre_name#161], functions=[], output=[song_id#57, genre_name#161])
+                                             +- Project [song_id#57, trim(lower(genre_name#38), None) AS genre_name#161]
+                                                +- BroadcastHashJoin [genre_id#58], [genre_id#39], Inner, BuildRight, false
+                                                   :- Filter (isnotnull(genre_id#58) AND isnotnull(song_id#57))
+                                                   :  +- FileScan csv [song_id#57,genre_id#58] Batched: false, DataFilters: [isnotnull(genre_id#58), isnotnull(song_id#57)], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(genre_id), IsNotNull(song_id)], ReadSchema: struct<song_id:string,genre_id:string>
+                                                   +- BroadcastExchange HashedRelationBroadcastMode(List(input[1, string, false]),false), [plan_id=8449]
+                                                      +- Filter ((isnotnull(trim(lower(genre_name#38), None)) AND NOT (trim(lower(genre_name#38), None) = )) AND isnotnull(genre_id#39))
+                                                         +- FileScan csv [genre_name#38,genre_id#39] Batched: false, DataFilters: [isnotnull(trim(lower(genre_name#38), None)), NOT (trim(lower(genre_name#38), None) = ), isnotnul..., Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/khomyshyn/Library/Mobile Documents/com~apple~CloudDocs/Уні..., PartitionFilters: [], PushedFilters: [IsNotNull(genre_id)], ReadSchema: struct<genre_name:string,genre_id:string>
